@@ -13,7 +13,9 @@
     <meta property="og:title" content="Yuting Tao | Homepage">
     <meta property="og:description" content="Ph.D. student at HKU (ArcLab). Deep reinforcement learning for robot navigation and obstacle avoidance.">
     <meta property="og:url" content="https://taoyt814.github.io/">
+    <meta property="og:image" content="https://taoyt814.github.io/photo.jpg">
     <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://taoyt814.github.io/photo.jpg">
 
     <!-- 内联 SVG favicon：圆形 + 首字母 YT，无需额外文件 -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230969da'/%3E%3Ctext x='32' y='44' font-size='34' font-family='Arial,sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3EYT%3C/text%3E%3C/svg%3E">
@@ -137,6 +139,32 @@
             padding: 3px 9px; border-radius: 6px; transition: 0.2s;
         }
         .pub-links a:hover { background-color: var(--primary-color); color: #fff; text-decoration: none; }
+        /* 标题可点击：默认继承文字色，悬停变主色 */
+        .pub-title a { color: inherit; text-decoration: none; }
+        .pub-title a:hover { color: var(--primary-color); }
+        /* BibTeX 切换按钮（与 [PDF] 同款外观） */
+        .pub-links button.cite {
+            font: inherit; font-size: 12.5px; vertical-align: middle;
+            margin-right: 8px; margin-top: 4px; color: var(--primary-color);
+            background: transparent; border: 1px solid var(--primary-color);
+            padding: 3px 9px; border-radius: 6px; cursor: pointer; transition: 0.2s;
+        }
+        .pub-links button.cite:hover { background-color: var(--primary-color); color: #fff; }
+        /* BibTeX 代码框 */
+        .bibtex { position: relative; margin-top: 10px; }
+        .bibtex pre {
+            margin: 0; padding: 30px 14px 13px; font-size: 12px; line-height: 1.5;
+            background: var(--bg-color); border: 1px dashed var(--border-color);
+            border-radius: 8px; overflow-x: auto; white-space: pre;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            color: var(--secondary-text);
+        }
+        .bibtex .copy-btn {
+            position: absolute; top: 7px; right: 7px; font: inherit; font-size: 11px;
+            padding: 2px 9px; cursor: pointer; border: 1px solid var(--border-color);
+            border-radius: 5px; background: var(--card-bg); color: var(--text-color); transition: 0.2s;
+        }
+        .bibtex .copy-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
 
         /* 教育背景 */
         .edu-item { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; font-size: 15px; }
@@ -215,10 +243,23 @@
                 <p class="pub-note">加粗为本人；(* 表示通讯作者)</p>
 
                 <div class="pub-item">
-                    <p class="pub-title">VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance</p>
+                    <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener">VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance</a></p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Jian Kang, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE T-IE</span>IEEE Transactions on Industrial Electronics（Early Access），2026</p>
-                    <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{tao2026void,
+  title     = {VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance},
+  author    = {Tao, Yuting and Li, Mingyang and Kang, Jian and Cao, Xiao and Lu, Peng},
+  journal   = {IEEE Transactions on Industrial Electronics},
+  year      = {2026},
+  publisher = {IEEE}
+}</pre>
+                    </div>
                 </div>
 
                 <div class="pub-item">
@@ -226,37 +267,104 @@
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Zichen Yang, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">投稿中 / Under Review</span>2026</p>
                     <div class="pub-links">
-                        <a href="#">[PDF]</a>
                         <a href="https://github.com/taoyt814" target="_blank" rel="noopener">[Code]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{tao2026rastgat,
+  title  = {RAST-GAT: Risk-Aware Spatio-Temporal Graph Attention for Dense Crowd Navigation},
+  author = {Tao, Yuting and Li, Mingyang and Yang, Zichen and Lu, Peng},
+  note   = {Under review},
+  year   = {2026}
+}</pre>
                     </div>
                 </div>
 
                 <div class="pub-item">
-                    <p class="pub-title">DAPTP: Distributed Awareness Planner using Time Potential for Dynamic Target Search</p>
+                    <p class="pub-title"><a href="https://www.sciencedirect.com/science/article/abs/pii/S092188902500096X" target="_blank" rel="noopener">DAPTP: Distributed Awareness Planner using Time Potential for Dynamic Target Search</a></p>
                     <p class="pub-authors">Mingyang Li, <b>Yuting Tao</b>, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">RAS</span>Robotics and Autonomous Systems, 191:105010, 2025</p>
-                    <div class="pub-links"><a href="https://www.sciencedirect.com/science/article/abs/pii/S092188902500096X" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://www.sciencedirect.com/science/article/abs/pii/S092188902500096X" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{li2025daptp,
+  title     = {DAPTP: Distributed Awareness Planner using Time Potential for dynamic target search},
+  author    = {Li, Mingyang and Tao, Yuting and Cao, Xiao and Lu, Peng},
+  journal   = {Robotics and Autonomous Systems},
+  volume    = {191},
+  pages     = {105010},
+  year      = {2025},
+  publisher = {North-Holland}
+}</pre>
+                    </div>
                 </div>
 
                 <div class="pub-item">
-                    <p class="pub-title">SAGE: Decoupling Spatial Logic from Metric Scale for Zero-Shot Multi-Robot Exploration</p>
+                    <p class="pub-title"><a href="https://www.researchsquare.com/article/rs-8307666/v1" target="_blank" rel="noopener">SAGE: Decoupling Spatial Logic from Metric Scale for Zero-Shot Multi-Robot Exploration</a></p>
                     <p class="pub-authors">Peng Lu*, Xiao Cao, Mingyang Li, Yi Luo, <b>Yuting Tao</b>, Bowen Xu</p>
                     <p class="pub-venue"><span class="badge">预印本 / Preprint</span>2025</p>
-                    <div class="pub-links"><a href="https://www.researchsquare.com/article/rs-8307666/v1" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://www.researchsquare.com/article/rs-8307666/v1" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{lu2025sage,
+  title  = {SAGE: Decoupling Spatial Logic from Metric Scale for Zero-Shot Multi-Robot Exploration},
+  author = {Lu, Peng and Cao, Xiao and Li, Mingyang and Luo, Yi and Tao, Yuting and Xu, Bowen},
+  year   = {2025}
+}</pre>
+                    </div>
                 </div>
 
                 <div class="pub-item">
-                    <p class="pub-title">Mobile Robot Collision Avoidance Based on Deep Reinforcement Learning with Motion Constraints</p>
+                    <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener">Mobile Robot Collision Avoidance Based on Deep Reinforcement Learning with Motion Constraints</a></p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE T-IV</span>IEEE Transactions on Intelligent Vehicles, 10(3):2163–2173, 2024</p>
-                    <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{tao2024mobile,
+  title     = {Mobile robot collision avoidance based on deep reinforcement learning with motion constraints},
+  author    = {Tao, Yuting and Li, Mingyang and Cao, Xiao and Lu, Peng},
+  journal   = {IEEE Transactions on Intelligent Vehicles},
+  volume    = {10},
+  number    = {3},
+  pages     = {2163--2173},
+  year      = {2024},
+  publisher = {IEEE}
+}</pre>
+                    </div>
                 </div>
 
                 <div class="pub-item">
-                    <p class="pub-title">HMA-SAR: Multi-Agent Search and Rescue for Unknown Located Dynamic Targets in Completely Unknown Environments</p>
+                    <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/10517396" target="_blank" rel="noopener">HMA-SAR: Multi-Agent Search and Rescue for Unknown Located Dynamic Targets in Completely Unknown Environments</a></p>
                     <p class="pub-authors">Xiao Cao, Mingyang Li, <b>Yuting Tao</b>, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE RA-L</span>IEEE Robotics and Automation Letters, 9(6):5567–5574, 2024</p>
-                    <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/10517396" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://ieeexplore.ieee.org/document/10517396" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{cao2024hma,
+  title     = {HMA-SAR: Multi-agent search and rescue for unknown located dynamic targets in completely unknown environments},
+  author    = {Cao, Xiao and Li, Mingyang and Tao, Yuting and Lu, Peng},
+  journal   = {IEEE Robotics and Automation Letters},
+  volume    = {9},
+  number    = {6},
+  pages     = {5567--5574},
+  year      = {2024},
+  publisher = {IEEE}
+}</pre>
+                    </div>
                 </div>
 
                 <p class="pub-note">完整列表请见我的 <a href="https://scholar.google.com/citations?user=voksvgoAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar</a>。</p>
@@ -340,10 +448,23 @@
                 <p class="pub-note">My name in bold; (* indicates corresponding author)</p>
 
                 <div class="pub-item">
-                    <p class="pub-title">VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance</p>
+                    <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener">VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance</a></p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Jian Kang, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE T-IE</span>IEEE Transactions on Industrial Electronics (Early Access), 2026</p>
-                    <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{tao2026void,
+  title     = {VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance},
+  author    = {Tao, Yuting and Li, Mingyang and Kang, Jian and Cao, Xiao and Lu, Peng},
+  journal   = {IEEE Transactions on Industrial Electronics},
+  year      = {2026},
+  publisher = {IEEE}
+}</pre>
+                    </div>
                 </div>
 
                 <div class="pub-item">
@@ -351,37 +472,104 @@
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Zichen Yang, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">Under Review</span>2026</p>
                     <div class="pub-links">
-                        <a href="#">[PDF]</a>
                         <a href="https://github.com/taoyt814" target="_blank" rel="noopener">[Code]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{tao2026rastgat,
+  title  = {RAST-GAT: Risk-Aware Spatio-Temporal Graph Attention for Dense Crowd Navigation},
+  author = {Tao, Yuting and Li, Mingyang and Yang, Zichen and Lu, Peng},
+  note   = {Under review},
+  year   = {2026}
+}</pre>
                     </div>
                 </div>
 
                 <div class="pub-item">
-                    <p class="pub-title">DAPTP: Distributed Awareness Planner using Time Potential for Dynamic Target Search</p>
+                    <p class="pub-title"><a href="https://www.sciencedirect.com/science/article/abs/pii/S092188902500096X" target="_blank" rel="noopener">DAPTP: Distributed Awareness Planner using Time Potential for Dynamic Target Search</a></p>
                     <p class="pub-authors">Mingyang Li, <b>Yuting Tao</b>, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">RAS</span>Robotics and Autonomous Systems, 191:105010, 2025</p>
-                    <div class="pub-links"><a href="https://www.sciencedirect.com/science/article/abs/pii/S092188902500096X" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://www.sciencedirect.com/science/article/abs/pii/S092188902500096X" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{li2025daptp,
+  title     = {DAPTP: Distributed Awareness Planner using Time Potential for dynamic target search},
+  author    = {Li, Mingyang and Tao, Yuting and Cao, Xiao and Lu, Peng},
+  journal   = {Robotics and Autonomous Systems},
+  volume    = {191},
+  pages     = {105010},
+  year      = {2025},
+  publisher = {North-Holland}
+}</pre>
+                    </div>
                 </div>
 
                 <div class="pub-item">
-                    <p class="pub-title">SAGE: Decoupling Spatial Logic from Metric Scale for Zero-Shot Multi-Robot Exploration</p>
+                    <p class="pub-title"><a href="https://www.researchsquare.com/article/rs-8307666/v1" target="_blank" rel="noopener">SAGE: Decoupling Spatial Logic from Metric Scale for Zero-Shot Multi-Robot Exploration</a></p>
                     <p class="pub-authors">Peng Lu*, Xiao Cao, Mingyang Li, Yi Luo, <b>Yuting Tao</b>, Bowen Xu</p>
                     <p class="pub-venue"><span class="badge">Preprint</span>2025</p>
-                    <div class="pub-links"><a href="https://www.researchsquare.com/article/rs-8307666/v1" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://www.researchsquare.com/article/rs-8307666/v1" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{lu2025sage,
+  title  = {SAGE: Decoupling Spatial Logic from Metric Scale for Zero-Shot Multi-Robot Exploration},
+  author = {Lu, Peng and Cao, Xiao and Li, Mingyang and Luo, Yi and Tao, Yuting and Xu, Bowen},
+  year   = {2025}
+}</pre>
+                    </div>
                 </div>
 
                 <div class="pub-item">
-                    <p class="pub-title">Mobile Robot Collision Avoidance Based on Deep Reinforcement Learning with Motion Constraints</p>
+                    <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener">Mobile Robot Collision Avoidance Based on Deep Reinforcement Learning with Motion Constraints</a></p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE T-IV</span>IEEE Transactions on Intelligent Vehicles, 10(3):2163–2173, 2024</p>
-                    <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{tao2024mobile,
+  title     = {Mobile robot collision avoidance based on deep reinforcement learning with motion constraints},
+  author    = {Tao, Yuting and Li, Mingyang and Cao, Xiao and Lu, Peng},
+  journal   = {IEEE Transactions on Intelligent Vehicles},
+  volume    = {10},
+  number    = {3},
+  pages     = {2163--2173},
+  year      = {2024},
+  publisher = {IEEE}
+}</pre>
+                    </div>
                 </div>
 
                 <div class="pub-item">
-                    <p class="pub-title">HMA-SAR: Multi-Agent Search and Rescue for Unknown Located Dynamic Targets in Completely Unknown Environments</p>
+                    <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/10517396" target="_blank" rel="noopener">HMA-SAR: Multi-Agent Search and Rescue for Unknown Located Dynamic Targets in Completely Unknown Environments</a></p>
                     <p class="pub-authors">Xiao Cao, Mingyang Li, <b>Yuting Tao</b>, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE RA-L</span>IEEE Robotics and Automation Letters, 9(6):5567–5574, 2024</p>
-                    <div class="pub-links"><a href="https://ieeexplore.ieee.org/document/10517396" target="_blank" rel="noopener">[PDF]</a></div>
+                    <div class="pub-links">
+                        <a href="https://ieeexplore.ieee.org/document/10517396" target="_blank" rel="noopener">[PDF]</a>
+                        <button class="cite" onclick="toggleCite(this)">BibTeX</button>
+                    </div>
+                    <div class="bibtex" hidden>
+                        <button class="copy-btn" onclick="copyBib(this)">复制 Copy</button>
+                        <pre>@article{cao2024hma,
+  title     = {HMA-SAR: Multi-agent search and rescue for unknown located dynamic targets in completely unknown environments},
+  author    = {Cao, Xiao and Li, Mingyang and Tao, Yuting and Lu, Peng},
+  journal   = {IEEE Robotics and Automation Letters},
+  volume    = {9},
+  number    = {6},
+  pages     = {5567--5574},
+  year      = {2024},
+  publisher = {IEEE}
+}</pre>
+                    </div>
                 </div>
 
                 <p class="pub-note">For the full list, please see my <a href="https://scholar.google.com/citations?user=voksvgoAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>.</p>
@@ -454,6 +642,20 @@
             var next = (localStorage.getItem('theme') === 'dark') ? 'light' : 'dark';
             localStorage.setItem('theme', next);
             applyTheme(next);
+        }
+
+        // ---- BibTeX 引用：展开 / 收起 + 一键复制 ----
+        function toggleCite(btn) {
+            var box = btn.closest('.pub-item').querySelector('.bibtex');
+            if (box.hasAttribute('hidden')) { box.removeAttribute('hidden'); btn.textContent = '收起 / Hide'; }
+            else { box.setAttribute('hidden', ''); btn.textContent = 'BibTeX'; }
+        }
+        function copyBib(btn) {
+            var text = btn.parentElement.querySelector('pre').textContent;
+            navigator.clipboard.writeText(text).then(function () {
+                var old = btn.textContent; btn.textContent = '已复制 ✓';
+                setTimeout(function () { btn.textContent = old; }, 1500);
+            });
         }
 
         // ---- 初始化：读取记忆，主题默认跟随系统 ----
