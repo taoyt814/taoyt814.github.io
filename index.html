@@ -3,296 +3,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage | 个人主页</title>
-    <style>
-        /* 基础样式与学术风配色 */
-        :root {
-            --primary-color: #0366d6; /* 经典的学术蓝色链接 */
-            --text-color: #24292e;
-            --bg-color: #ffffff;
-            --border-color: #eaecef;
-            --secondary-text: #586069;
-        }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
-            line-height: 1.6; 
-            color: var(--text-color); 
-            background-color: var(--bg-color); 
-            margin: 0; 
-            padding: 0; 
-        }
-        a { color: var(--primary-color); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        
-        /* 顶部中英文切换按钮区域 */
-        .top-bar { max-width: 1000px; margin: 20px auto 0; padding: 0 20px; text-align: right; }
-        .top-bar button {
-            background-color: #fff; color: var(--text-color); border: 1px solid var(--border-color); 
-            padding: 6px 15px; border-radius: 6px; cursor: pointer; font-size: 14px; 
-            font-weight: 500; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .top-bar button:hover { background-color: #f3f4f6; }
+    <title>Yuting Tao | 陶宇婷 · Homepage</title>
 
-        /* 核心布局：左侧边栏 + 右侧主内容 */
-        .layout { display: flex; max-width: 1000px; margin: 20px auto 40px; padding: 0 20px; gap: 50px; }
-        
-        /* ================= 左侧边栏 ================= */
-        .sidebar { 
-            width: 250px; flex-shrink: 0; text-align: center; 
-            /* 粘性定位：往下滚动页面时，侧边栏会固定在屏幕左侧 */
-            position: sticky; top: 40px; height: fit-content; 
+    <!-- ===== SEO / 社交分享 meta ===== -->
+    <meta name="author" content="Yuting Tao">
+    <meta name="description" content="Yuting Tao (陶宇婷) — Ph.D. student at the Department of Mechanical Engineering, The University of Hong Kong (ArcLab). Research on crowd navigation, deep reinforcement learning, and spatio-temporal graph neural networks for robot motion.">
+    <meta name="keywords" content="Yuting Tao, ArcLab, HKU, Crowd Navigation, Reinforcement Learning, Graph Neural Networks, ST-GAT, Robot Navigation, Peng Lu">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Yuting Tao | Homepage">
+    <meta property="og:description" content="Ph.D. student at HKU (ArcLab). Crowd navigation, deep RL, and spatio-temporal graph neural networks.">
+    <meta property="og:url" content="https://taoyt814.github.io/">
+    <meta name="twitter:card" content="summary">
+
+    <!-- 内联 SVG favicon：圆形 + 首字母 YT，无需额外文件 -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230969da'/%3E%3Ctext x='32' y='44' font-size='34' font-family='Arial,sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3EYT%3C/text%3E%3C/svg%3E">
+
+    <style>
+        /* ============ 主题变量：浅色（默认） ============ */
+        :root {
+            --primary-color: #0969da;
+            --primary-soft: rgba(9, 105, 218, 0.10);
+            --text-color: #1f2328;
+            --bg-color: #ffffff;
+            --card-bg: #fafbfc;
+            --border-color: #d0d7de;
+            --secondary-text: #59636e;
+            --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            --tag-bg: #ddf4ff;
+            --tag-text: #0550ae;
         }
-        .profile-img { 
-            width: 180px; height: 180px; border-radius: 50%; /* 如果想弄成方形，把50%改成10px */
-            object-fit: cover; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        /* ============ 主题变量：深色 ============ */
+        html[data-theme="dark"] {
+            --primary-color: #4493f8;
+            --primary-soft: rgba(68, 147, 248, 0.14);
+            --text-color: #e6edf3;
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --secondary-text: #9198a1;
+            --shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+            --tag-bg: #15324f;
+            --tag-text: #79c0ff;
         }
-        .sidebar h1 { font-size: 26px; margin: 0 0 5px 0; letter-spacing: 0.5px;}
-        .sidebar h2 { font-size: 16px; color: var(--secondary-text); font-weight: normal; margin: 0 0 5px 0; }
-        .contact-links { text-align: left; margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 20px; }
-        .contact-links p { margin: 8px 0; font-size: 15px; display: flex; align-items: center; gap: 8px;}
-        
-        /* ================= 右侧主内容 ================= */
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+            line-height: 1.65;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0; padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        a { color: var(--primary-color); text-decoration: none; transition: color 0.2s; }
+        a:hover { text-decoration: underline; }
+
+        /* ============ 顶栏：语言 + 主题切换 ============ */
+        .top-bar {
+            max-width: 1040px; margin: 0 auto; padding: 18px 20px 0;
+            display: flex; justify-content: flex-end; gap: 10px;
+        }
+        .top-bar button {
+            background-color: var(--card-bg); color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 7px 14px; border-radius: 8px; cursor: pointer;
+            font-size: 14px; font-weight: 500; transition: 0.2s;
+            box-shadow: var(--shadow);
+        }
+        .top-bar button:hover { border-color: var(--primary-color); color: var(--primary-color); transform: translateY(-1px); }
+
+        /* ============ 布局 ============ */
+        .layout { display: flex; max-width: 1040px; margin: 24px auto 56px; padding: 0 20px; gap: 52px; }
+
+        /* ---- 左侧边栏 ---- */
+        .sidebar { width: 248px; flex-shrink: 0; text-align: center; position: sticky; top: 28px; height: fit-content; }
+        .profile-img {
+            width: 180px; height: 180px; border-radius: 50%;
+            object-fit: cover; margin-bottom: 18px;
+            box-shadow: var(--shadow); border: 3px solid var(--card-bg);
+        }
+        .sidebar h1 { font-size: 25px; margin: 0 0 4px; letter-spacing: 0.3px; }
+        .sidebar .subtitle { font-size: 15px; color: var(--secondary-text); margin: 2px 0; }
+        .contact-links { text-align: left; margin-top: 22px; border-top: 1px solid var(--border-color); padding-top: 18px; }
+        .contact-links p { margin: 9px 0; font-size: 14.5px; display: flex; align-items: center; gap: 9px; word-break: break-all; }
+        .contact-links .ico { width: 18px; text-align: center; flex-shrink: 0; }
+
+        /* ---- 右侧主内容 ---- */
         .main-content { flex-grow: 1; min-width: 0; }
-        section { margin-bottom: 40px; }
-        h3 { 
-            font-size: 22px; border-bottom: 2px solid var(--border-color); 
-            padding-bottom: 8px; margin-bottom: 20px; color: var(--text-color);
+        section { margin-bottom: 38px; }
+        h3 {
+            font-size: 21px; border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px; margin: 0 0 18px; color: var(--text-color);
         }
-        
-        /* 新闻列表 (带有滚动条的学术风News) */
-        .news-list { 
-            height: 160px; overflow-y: auto; border: 1px solid var(--border-color); 
-            padding: 15px; border-radius: 6px; background-color: #fafbfc; font-size: 15px;
+        p { margin: 0 0 12px; }
+
+        /* 研究兴趣标签 */
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        .tag {
+            background: var(--tag-bg); color: var(--tag-text);
+            font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 999px;
         }
-        .news-list ul { margin: 0; padding-left: 20px; }
-        .news-list li { margin-bottom: 10px; }
-        .news-date { font-weight: 600; margin-right: 10px; color: var(--text-color); }
-        
-        /* 论文列表 */
-        .pub-item { margin-bottom: 25px; }
-        .pub-title { font-weight: 600; font-size: 17px; margin: 0 0 5px 0;}
-        .pub-authors { margin: 0 0 5px 0; font-size: 15px; }
-        .pub-authors b { color: var(--text-color); } /* 加粗自己的名字 */
-        .pub-venue { font-style: italic; font-size: 15px; color: var(--secondary-text); margin: 0 0 8px 0;}
-        .pub-links a { 
-            display: inline-block; margin-right: 10px; font-size: 13px; color: var(--primary-color); 
-            border: 1px solid var(--primary-color); padding: 3px 8px; border-radius: 4px; transition: 0.2s;
+
+        /* News 列表（超出高度自动滚动） */
+        .news-list {
+            max-height: 168px; overflow-y: auto;
+            border: 1px solid var(--border-color); padding: 14px 16px;
+            border-radius: 10px; background-color: var(--card-bg); font-size: 14.5px;
         }
-        .pub-links a:hover { background-color: var(--primary-color); color: white; text-decoration: none; }
+        .news-list ul { margin: 0; padding-left: 18px; }
+        .news-list li { margin-bottom: 9px; }
+        .news-date { font-weight: 600; margin-right: 8px; color: var(--primary-color); }
+
+        /* 论文 */
+        .pub-note { font-size: 13.5px; color: var(--secondary-text); margin: -8px 0 16px; }
+        .pub-item {
+            margin-bottom: 18px; padding: 14px 16px;
+            border: 1px solid var(--border-color); border-radius: 10px;
+            background: var(--card-bg); transition: 0.2s;
+        }
+        .pub-item:hover { border-color: var(--primary-color); box-shadow: var(--shadow); transform: translateY(-2px); }
+        .pub-title { font-weight: 600; font-size: 16px; margin: 0 0 5px; }
+        .pub-authors { margin: 0 0 4px; font-size: 14.5px; color: var(--secondary-text); }
+        .pub-authors b { color: var(--text-color); }
+        .pub-venue { font-size: 14px; color: var(--secondary-text); margin: 0 0 9px; }
+        .pub-venue .badge {
+            font-style: normal; font-weight: 600; color: var(--primary-color);
+            background: var(--primary-soft); padding: 1px 8px; border-radius: 5px; margin-right: 6px;
+        }
+        .pub-links a {
+            display: inline-block; margin-right: 8px; margin-top: 4px; font-size: 12.5px;
+            color: var(--primary-color); border: 1px solid var(--primary-color);
+            padding: 3px 9px; border-radius: 6px; transition: 0.2s;
+        }
+        .pub-links a:hover { background-color: var(--primary-color); color: #fff; text-decoration: none; }
 
         /* 教育背景 */
-        .edu-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 16px; }
+        .edu-item { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; font-size: 15px; }
         .edu-school { font-weight: 600; }
-        .edu-time { color: var(--secondary-text); font-size: 15px;}
+        .edu-time { color: var(--secondary-text); font-size: 14px; white-space: nowrap; }
 
-        /* 响应式设计（在手机上自动把左侧边栏放到上面） */
+        footer { text-align: center; font-size: 13px; color: var(--secondary-text); padding: 24px 20px 32px; }
+
+        /* 响应式 */
         @media (max-width: 768px) {
-            .layout { flex-direction: column; align-items: center; gap: 20px;}
-            .sidebar { width: 100%; position: static; }
-            .contact-links { width: 250px; margin: 20px auto 0; }
+            .layout { flex-direction: column; align-items: center; gap: 24px; }
+            .sidebar { width: 100%; position: static; max-width: 320px; }
+            .contact-links { width: 250px; margin: 18px auto 0; }
+            .edu-item { flex-direction: column; gap: 2px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 顶部切换按钮 -->
+    <!-- 顶栏 -->
     <div class="top-bar">
+        <button onclick="toggleTheme()" id="theme-btn" title="切换深色 / 浅色">🌙 深色</button>
         <button onclick="toggleLang()" id="lang-btn">🌐 Switch to English</button>
     </div>
 
-    <!-- ==================== 中文版页面 开始 ==================== -->
+    <!-- ==================== 中文版 ==================== -->
     <div id="zh-cv" class="layout">
-        
-        <!-- 左侧：个人信息 -->
-        <div class="sidebar">
-            <!-- 稍后我会教你怎么把下面这个链接换成你自己的照片 -->
-            <img src="https://via.placeholder.com/180" alt="Profile Photo" class="profile-img">
-            <h1>你的姓名</h1>
-            <h2>博士研究生</h2>
-            <h2>某某大学计算机学院</h2>
+        <aside class="sidebar">
+            <!-- 把照片放进仓库（如 assets/photo.jpg）后，将下面 src 改为 "assets/photo.jpg" -->
+            <img src="photo.jpg" alt="Yuting Tao" class="profile-img">
+            <h1>陶钰婷</h1>
+            <p class="subtitle">博士研究生</p>
+            <p class="subtitle">香港大学 · 机械工程系</p>
+            <p class="subtitle">自适应机器人控制实验室 (ArcLab)</p>
             <div class="contact-links">
-                <p>📧 <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-                <p>🎓 <a href="#" target="_blank">Google Scholar</a></p>
-                <p>💻 <a href="#" target="_blank">GitHub</a></p>
-                <p>📄 <a href="#" target="_blank">个人简历 (CV)</a></p>
+                <p><span class="ico">📧</span> <a href="mailto:taoyt@connect.hku.hk">taoyt@connect.hku.hk</a></p>
+                <p><span class="ico">🎓</span> <a href="https://scholar.google.com/citations?user=voksvgoAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar</a></p>
+                <p><span class="ico">💻</span> <a href="https://github.com/taoyt814" target="_blank" rel="noopener">GitHub</a></p>
+                <p><span class="ico">🏛️</span> <a href="https://arclab.hku.hk/" target="_blank" rel="noopener">ArcLab 实验室主页</a></p>
+                <!-- 准备好简历 PDF 后，把 href 改成文件链接，例如 "assets/CV.pdf" -->
+                <p><span class="ico">📄</span> <a href="#" target="_blank" rel="noopener">个人简历 (CV)</a></p>
             </div>
-        </div>
+        </aside>
 
-        <!-- 右侧：主要内容 -->
-        <div class="main-content">
+        <main class="main-content">
             <section>
-                <h3>简介 (About Me)</h3>
-                <p>你好！我是某某大学计算机科学与技术系的二年级博士生，导师是 <a href="#">某某教授</a>。在此之前，我于某某大学获得了学士学位。</p>
-                <p>我的主要研究方向为<strong>自然语言处理 (NLP)</strong> 和 <strong>大型语言模型 (LLMs)</strong>，尤其对人工智能体、复杂推理等方向充满兴趣。我的目标是构建能够自主与物理和数字世界交互的通用系统。</p>
+                <h3>简介</h3>
+                <p>你好！我是<strong>香港大学机械工程系</strong>的博士研究生，隶属<strong>自适应机器人控制实验室 (ArcLab)</strong>，导师为 <a href="https://arclab.hku.hk/" target="_blank" rel="noopener">陆鹏 (Peng Lu) 教授</a>。</p>
+                <p>我的研究方向是<strong>密集人群中的机器人导航</strong>，结合<strong>深度强化学习</strong>与<strong>时空图神经网络 (Spatio-Temporal GNN)</strong>，让移动机器人在动态行人环境中实现安全、平滑且符合社会规范的运动。我尤其关注如何对行人交互关系进行建模，并提升导航策略在密集场景下的鲁棒性。</p>
+                <div class="tags">
+                    <span class="tag">人群导航</span>
+                    <span class="tag">深度强化学习</span>
+                    <span class="tag">图神经网络</span>
+                    <span class="tag">时空建模</span>
+                    <span class="tag">机器人运动规划</span>
+                    <span class="tag">社会感知导航</span>
+                </div>
             </section>
 
             <section>
-                <h3>最新动态 (News)</h3>
+                <h3>最新动态</h3>
                 <div class="news-list">
                     <ul>
-                        <li><span class="news-date">[2024.01]</span> 我们的论文被 <strong>ACL 2024</strong> 接收！</li>
-                        <li><span class="news-date">[2023.09]</span> 获得了国家奖学金。</li>
-                        <li><span class="news-date">[2023.05]</span> 我将前往某某公司进行为期三个月的研究实习。</li>
-                        <li><span class="news-date">[2022.09]</span> 正式开启了我的博士生涯！</li>
-                        <!-- 你可以在这里继续添加更多动态，列表足够长时会自动出现滚动条 -->
+                        <li><span class="news-date">[2026]</span> 论文 <em>VOID</em>（三维动态避障）被 <strong>IEEE T-IE</strong> 录用（Early Access）。</li>
+                        <li><span class="news-date">[2026]</span> 论文 <em>RAST-GAT</em>（密集人群导航）投稿中。</li>
+                        <li><span class="news-date">[2025]</span> 论文 <em>DAPTP</em> 发表于 <strong>Robotics and Autonomous Systems</strong>。</li>
+                        <li><span class="news-date">[2024]</span> 论文 <em>Mobile Robot Collision Avoidance</em> 发表于 <strong>IEEE T-IV</strong>。</li>
+                        <!-- 在这里继续添加动态（如奖学金、实习、会议）；条目较多时会自动出现滚动条 -->
                     </ul>
                 </div>
             </section>
 
             <section>
-                <h3>代表性论文 (Publications)</h3>
-                <p style="font-size: 14px; color: #586069; margin-top: -10px;">(* 代表共同第一作者)</p>
+                <h3>代表性论文</h3>
+                <p class="pub-note">加粗为本人；(* 表示通讯作者)</p>
 
-                <!-- 第一篇论文 -->
                 <div class="pub-item">
-                    <p class="pub-title">这是一篇非常厉害的顶会论文标题 (Paper Title)</p>
-                    <p class="pub-authors"><b>你的姓名</b>, 合作者A, 导师姓名</p>
-                    <p class="pub-venue">The Annual Meeting of the Association for Computational Linguistics (<strong>ACL</strong>), 2024</p>
+                    <p class="pub-title">VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance</p>
+                    <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Jian Kang, Xiao Cao, Peng Lu</p>
+                    <p class="pub-venue"><span class="badge">IEEE T-IE</span>IEEE Transactions on Industrial Electronics（Early Access），2026</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
+                </div>
+
+                <div class="pub-item">
+                    <p class="pub-title">RAST-GAT: Risk-Aware Spatio-Temporal Graph Attention for Dense Crowd Navigation</p>
+                    <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Zichen Yang, Peng Lu*</p>
+                    <p class="pub-venue"><span class="badge">投稿中 / Under Review</span>2026</p>
                     <div class="pub-links">
                         <a href="#">[PDF]</a>
-                        <a href="#">[Code]</a>
-                        <a href="#">[Project Page]</a>
+                        <a href="https://github.com/taoyt814" target="_blank" rel="noopener">[Code]</a>
                     </div>
                 </div>
 
-                <!-- 第二篇论文 -->
                 <div class="pub-item">
-                    <p class="pub-title">这是另一篇出色的研究成果标题</p>
-                    <p class="pub-authors">合作者A*, <b>你的姓名*</b>, 导师姓名</p>
-                    <p class="pub-venue">Conference on Empirical Methods in Natural Language Processing (<strong>EMNLP</strong>), 2023</p>
-                    <div class="pub-links">
-                        <a href="#">[PDF]</a>
-                        <a href="#">[Code]</a>
-                    </div>
+                    <p class="pub-title">DAPTP: Distributed Awareness Planner using Time Potential for Dynamic Target Search</p>
+                    <p class="pub-authors">Mingyang Li, <b>Yuting Tao</b>, Xiao Cao, Peng Lu</p>
+                    <p class="pub-venue"><span class="badge">RAS</span>Robotics and Autonomous Systems, 191:105010, 2025</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
                 </div>
+
+                <div class="pub-item">
+                    <p class="pub-title">SAGE: Decoupling Spatial Logic from Metric Scale for Zero-Shot Multi-Robot Exploration</p>
+                    <p class="pub-authors">Peng Lu, Xiao Cao, Mingyang Li, Yi Luo, <b>Yuting Tao</b>, Bowen Xu</p>
+                    <p class="pub-venue"><span class="badge">预印本 / Preprint</span>2025</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
+                </div>
+
+                <div class="pub-item">
+                    <p class="pub-title">Mobile Robot Collision Avoidance Based on Deep Reinforcement Learning with Motion Constraints</p>
+                    <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Xiao Cao, Peng Lu</p>
+                    <p class="pub-venue"><span class="badge">IEEE T-IV</span>IEEE Transactions on Intelligent Vehicles, 10(3):2163–2173, 2024</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
+                </div>
+
+                <div class="pub-item">
+                    <p class="pub-title">HMA-SAR: Multi-Agent Search and Rescue for Unknown Located Dynamic Targets in Completely Unknown Environments</p>
+                    <p class="pub-authors">Xiao Cao, Mingyang Li, <b>Yuting Tao</b>, Peng Lu</p>
+                    <p class="pub-venue"><span class="badge">IEEE RA-L</span>IEEE Robotics and Automation Letters, 9(6):5567–5574, 2024</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
+                </div>
+
+                <p class="pub-note">完整列表请见我的 <a href="https://scholar.google.com/citations?user=voksvgoAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar</a>。</p>
             </section>
 
             <section>
-                <h3>教育背景 (Education)</h3>
+                <h3>教育背景</h3>
                 <div class="edu-item">
                     <div>
-                        <div class="edu-school">某某大学</div>
-                        <div>计算机科学与技术 博士 (Ph.D.)</div>
+                        <div class="edu-school">香港大学 (The University of Hong Kong)</div>
+                        <div>机械工程 博士 (Ph.D.)</div>
                     </div>
                     <div class="edu-time">2022.09 - 至今</div>
                 </div>
                 <div class="edu-item">
                     <div>
-                        <div class="edu-school">另一所大学</div>
-                        <div>软件工程 学士 (B.E.)</div>
+                        <div class="edu-school">香港大学 (The University of Hong Kong)</div>
+                        <div>机械工程 硕士 (M.Sc.)</div>
                     </div>
-                    <div class="edu-time">2018.09 - 2022.06</div>
+                    <div class="edu-time">2021.09 - 2022.06</div>
+                </div>
+                <div class="edu-item">
+                    <div>
+                        <div class="edu-school">哈尔滨工业大学 (Harbin Institute of Technology)</div>
+                        <div>机械工程 学士 (B.E.)</div>
+                    </div>
+                    <div class="edu-time">2017.09 - 2021.06</div>
                 </div>
             </section>
-        </div>
+        </main>
     </div>
-    <!-- ==================== 中文版页面 结束 ==================== -->
 
-
-
-    <!-- ==================== 英文版页面 开始 ==================== -->
-    <!-- 注意这里的 style="display: none;" 默认隐藏英文版 -->
+    <!-- ==================== 英文版（默认隐藏） ==================== -->
     <div id="en-cv" class="layout" style="display: none;">
-        
-        <!-- 左侧：个人信息 -->
-        <div class="sidebar">
-            <img src="https://via.placeholder.com/180" alt="Profile Photo" class="profile-img">
-            <h1>Your Name</h1>
-            <h2>Ph.D. Student</h2>
-            <h2>Your University</h2>
+        <aside class="sidebar">
+            <img src="photo.jpg" alt="Yuting Tao" class="profile-img">
+            <h1>Yuting Tao</h1>
+            <p class="subtitle">Ph.D. Student</p>
+            <p class="subtitle">The University of Hong Kong</p>
+            <p class="subtitle">Dept. of Mechanical Engineering · ArcLab</p>
             <div class="contact-links">
-                <p>📧 <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-                <p>🎓 <a href="#" target="_blank">Google Scholar</a></p>
-                <p>💻 <a href="#" target="_blank">GitHub</a></p>
-                <p>📄 <a href="#" target="_blank">Curriculum Vitae</a></p>
+                <p><span class="ico">📧</span> <a href="mailto:taoyt@connect.hku.hk">taoyt@connect.hku.hk</a></p>
+                <p><span class="ico">🎓</span> <a href="https://scholar.google.com/citations?user=voksvgoAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></p>
+                <p><span class="ico">💻</span> <a href="https://github.com/taoyt814" target="_blank" rel="noopener">GitHub</a></p>
+                <p><span class="ico">🏛️</span> <a href="https://arclab.hku.hk/" target="_blank" rel="noopener">ArcLab</a></p>
+                <p><span class="ico">📄</span> <a href="#" target="_blank" rel="noopener">Curriculum Vitae</a></p>
             </div>
-        </div>
+        </aside>
 
-        <!-- 右侧：主要内容 -->
-        <div class="main-content">
+        <main class="main-content">
             <section>
                 <h3>About Me</h3>
-                <p>Hi! I am a second-year Ph.D. student at the Department of Computer Science, Your University, advised by <a href="#">Prof. XYZ</a>. Prior to this, I received my Bachelor's degree from Another University.</p>
-                <p>My research interests lie in <strong>Natural Language Processing (NLP)</strong> and <strong>Large Language Models (LLMs)</strong>. Specifically, I am passionate about Language Agents and complex reasoning. My ultimate goal is to build general-purpose AI systems that can autonomously interact with the physical and digital world.</p>
+                <p>Hi! I am a Ph.D. student in the <strong>Department of Mechanical Engineering</strong> at <strong>The University of Hong Kong</strong>, working in the <strong>Adaptive Robotic Controls Lab (ArcLab)</strong> under the supervision of <a href="https://arclab.hku.hk/" target="_blank" rel="noopener">Prof. Peng Lu</a>.</p>
+                <p>My research focuses on <strong>robot navigation in dense crowds</strong>, combining <strong>deep reinforcement learning</strong> with <strong>spatio-temporal graph neural networks</strong> to achieve safe, smooth, and socially compliant motion among dynamic pedestrians. I am particularly interested in modeling pedestrian interactions and improving the robustness of navigation policies in highly crowded scenes.</p>
+                <div class="tags">
+                    <span class="tag">Crowd Navigation</span>
+                    <span class="tag">Deep Reinforcement Learning</span>
+                    <span class="tag">Graph Neural Networks</span>
+                    <span class="tag">Spatio-Temporal Modeling</span>
+                    <span class="tag">Robot Motion Planning</span>
+                    <span class="tag">Socially-Aware Navigation</span>
+                </div>
             </section>
 
             <section>
                 <h3>News</h3>
                 <div class="news-list">
                     <ul>
-                        <li><span class="news-date">[Jan 2024]</span> One paper is accepted to <strong>ACL 2024</strong>!</li>
-                        <li><span class="news-date">[Sep 2023]</span> I received the National Scholarship.</li>
-                        <li><span class="news-date">[May 2023]</span> I will join Tech Company as a Research Intern for 3 months.</li>
-                        <li><span class="news-date">[Sep 2022]</span> I started my Ph.D. journey!</li>
+                        <li><span class="news-date">[2026]</span> <em>VOID</em> (3-D dynamic obstacle avoidance) is accepted to <strong>IEEE T-IE</strong> (Early Access).</li>
+                        <li><span class="news-date">[2026]</span> <em>RAST-GAT</em> on dense crowd navigation is under review.</li>
+                        <li><span class="news-date">[2025]</span> <em>DAPTP</em> is published in <strong>Robotics and Autonomous Systems</strong>.</li>
+                        <li><span class="news-date">[2024]</span> <em>Mobile Robot Collision Avoidance</em> is published in <strong>IEEE T-IV</strong>.</li>
+                        <!-- Add more news here (scholarships, internships, talks). The list scrolls when long. -->
                     </ul>
                 </div>
             </section>
 
             <section>
                 <h3>Publications</h3>
-                <p style="font-size: 14px; color: #586069; margin-top: -10px;">(* indicates equal contribution)</p>
+                <p class="pub-note">My name in bold; (* indicates corresponding author)</p>
 
                 <div class="pub-item">
-                    <p class="pub-title">Awesome Paper Title Here</p>
-                    <p class="pub-authors"><b>Your Name</b>, Co-author A, Advisor Name</p>
-                    <p class="pub-venue">The Annual Meeting of the Association for Computational Linguistics (<strong>ACL</strong>), 2024</p>
+                    <p class="pub-title">VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance</p>
+                    <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Jian Kang, Xiao Cao, Peng Lu</p>
+                    <p class="pub-venue"><span class="badge">IEEE T-IE</span>IEEE Transactions on Industrial Electronics (Early Access), 2026</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
+                </div>
+
+                <div class="pub-item">
+                    <p class="pub-title">RAST-GAT: Risk-Aware Spatio-Temporal Graph Attention for Dense Crowd Navigation</p>
+                    <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Zichen Yang, Peng Lu*</p>
+                    <p class="pub-venue"><span class="badge">Under Review</span>2026</p>
                     <div class="pub-links">
                         <a href="#">[PDF]</a>
-                        <a href="#">[Code]</a>
-                        <a href="#">[Project Page]</a>
+                        <a href="https://github.com/taoyt814" target="_blank" rel="noopener">[Code]</a>
                     </div>
                 </div>
 
                 <div class="pub-item">
-                    <p class="pub-title">Another Great Paper Title Here</p>
-                    <p class="pub-authors">Co-author A*, <b>Your Name*</b>, Advisor Name</p>
-                    <p class="pub-venue">Conference on Empirical Methods in Natural Language Processing (<strong>EMNLP</strong>), 2023</p>
-                    <div class="pub-links">
-                        <a href="#">[PDF]</a>
-                        <a href="#">[Code]</a>
-                    </div>
+                    <p class="pub-title">DAPTP: Distributed Awareness Planner using Time Potential for Dynamic Target Search</p>
+                    <p class="pub-authors">Mingyang Li, <b>Yuting Tao</b>, Xiao Cao, Peng Lu</p>
+                    <p class="pub-venue"><span class="badge">RAS</span>Robotics and Autonomous Systems, 191:105010, 2025</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
                 </div>
+
+                <div class="pub-item">
+                    <p class="pub-title">SAGE: Decoupling Spatial Logic from Metric Scale for Zero-Shot Multi-Robot Exploration</p>
+                    <p class="pub-authors">Peng Lu, Xiao Cao, Mingyang Li, Yi Luo, <b>Yuting Tao</b>, Bowen Xu</p>
+                    <p class="pub-venue"><span class="badge">Preprint</span>2025</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
+                </div>
+
+                <div class="pub-item">
+                    <p class="pub-title">Mobile Robot Collision Avoidance Based on Deep Reinforcement Learning with Motion Constraints</p>
+                    <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Xiao Cao, Peng Lu</p>
+                    <p class="pub-venue"><span class="badge">IEEE T-IV</span>IEEE Transactions on Intelligent Vehicles, 10(3):2163–2173, 2024</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
+                </div>
+
+                <div class="pub-item">
+                    <p class="pub-title">HMA-SAR: Multi-Agent Search and Rescue for Unknown Located Dynamic Targets in Completely Unknown Environments</p>
+                    <p class="pub-authors">Xiao Cao, Mingyang Li, <b>Yuting Tao</b>, Peng Lu</p>
+                    <p class="pub-venue"><span class="badge">IEEE RA-L</span>IEEE Robotics and Automation Letters, 9(6):5567–5574, 2024</p>
+                    <div class="pub-links"><a href="#">[PDF]</a></div>
+                </div>
+
+                <p class="pub-note">For the full list, please see my <a href="https://scholar.google.com/citations?user=voksvgoAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>.</p>
             </section>
 
             <section>
                 <h3>Education</h3>
                 <div class="edu-item">
                     <div>
-                        <div class="edu-school">Your University</div>
-                        <div>Ph.D. in Computer Science</div>
+                        <div class="edu-school">The University of Hong Kong</div>
+                        <div>Ph.D. in Mechanical Engineering</div>
                     </div>
                     <div class="edu-time">Sep 2022 - Present</div>
                 </div>
                 <div class="edu-item">
                     <div>
-                        <div class="edu-school">Another University</div>
-                        <div>B.E. in Software Engineering</div>
+                        <div class="edu-school">The University of Hong Kong</div>
+                        <div>M.Sc. in Mechanical Engineering</div>
                     </div>
-                    <div class="edu-time">Sep 2018 - Jun 2022</div>
+                    <div class="edu-time">Sep 2021 - Jun 2022</div>
+                </div>
+                <div class="edu-item">
+                    <div>
+                        <div class="edu-school">Harbin Institute of Technology</div>
+                        <div>B.E. in Mechanical Engineering</div>
+                    </div>
+                    <div class="edu-time">Sep 2017 - Jun 2021</div>
                 </div>
             </section>
-        </div>
+        </main>
     </div>
-    <!-- ==================== 英文版页面 结束 ==================== -->
 
-    <!-- JS：中英文切换逻辑 -->
+    <footer>© <span id="year"></span> Yuting Tao · Built with ❤ on GitHub Pages</footer>
+
+    <!-- ===== 交互逻辑：语言 + 主题，均记忆在 localStorage ===== -->
     <script>
-        function toggleLang() {
-            var zhCV = document.getElementById('zh-cv');
-            var enCV = document.getElementById('en-cv');
+        // ---- 语言切换 ----
+        function applyLang(lang) {
+            var zh = document.getElementById('zh-cv');
+            var en = document.getElementById('en-cv');
             var btn = document.getElementById('lang-btn');
-
-            if (zhCV.style.display === 'none') {
-                // 学术排版用的是 flex 布局，所以这里用 flex 恢复显示
-                zhCV.style.display = 'flex';
-                enCV.style.display = 'none';
-                btn.innerHTML = '🌐 Switch to English';
-            } else {
-                zhCV.style.display = 'none';
-                enCV.style.display = 'flex';
+            if (lang === 'en') {
+                zh.style.display = 'none'; en.style.display = 'flex';
                 btn.innerHTML = '🌐 切换至中文';
+                document.documentElement.lang = 'en';
+            } else {
+                zh.style.display = 'flex'; en.style.display = 'none';
+                btn.innerHTML = '🌐 Switch to English';
+                document.documentElement.lang = 'zh-CN';
             }
         }
+        function toggleLang() {
+            var next = (localStorage.getItem('lang') === 'en') ? 'zh' : 'en';
+            localStorage.setItem('lang', next);
+            applyLang(next);
+        }
+
+        // ---- 主题切换 ----
+        function applyTheme(theme) {
+            var btn = document.getElementById('theme-btn');
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                btn.innerHTML = '☀️ 浅色';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                btn.innerHTML = '🌙 深色';
+            }
+        }
+        function toggleTheme() {
+            var next = (localStorage.getItem('theme') === 'dark') ? 'light' : 'dark';
+            localStorage.setItem('theme', next);
+            applyTheme(next);
+        }
+
+        // ---- 初始化：读取记忆，主题默认跟随系统 ----
+        (function init() {
+            var savedTheme = localStorage.getItem('theme');
+            if (!savedTheme) {
+                savedTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+            }
+            applyTheme(savedTheme);
+            applyLang(localStorage.getItem('lang') || 'zh');
+            document.getElementById('year').textContent = new Date().getFullYear();
+        })();
     </script>
 </body>
 </html>
