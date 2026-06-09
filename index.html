@@ -165,6 +165,16 @@
             border-radius: 5px; background: var(--card-bg); color: var(--text-color); transition: 0.2s;
         }
         .bibtex .copy-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
+        /* 论文代表性配图（浮动 + 文字环绕） */
+        .pub-item.has-thumb::after { content: ""; display: block; clear: both; }
+        .pub-thumb-link { float: left; margin: 2px 16px 8px 0; display: block; transition: 0.2s; }
+        .pub-thumb-link:hover { opacity: 0.85; }
+        .pub-thumb { width: 152px; height: auto; display: block; border-radius: 8px; border: 1px solid var(--border-color); }
+        .bibtex { clear: both; }
+        @media (max-width: 768px) {
+            .pub-thumb-link { float: none; margin: 0 0 10px; }
+            .pub-thumb { width: 100%; max-width: 300px; }
+        }
 
         /* 教育背景 */
         .edu-item { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; font-size: 15px; }
@@ -242,7 +252,8 @@
                 <h3>代表性论文</h3>
                 <p class="pub-note">加粗为本人；(* 表示通讯作者)</p>
 
-                <div class="pub-item">
+                <div class="pub-item has-thumb">
+                    <a class="pub-thumb-link" href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener"><img class="pub-thumb" src="assets/void.jpg" alt="VOID: 3-D dynamic obstacle avoidance simulation"></a>
                     <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener">VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance</a></p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Jian Kang, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE T-IE</span>IEEE Transactions on Industrial Electronics（Early Access），2026</p>
@@ -262,7 +273,8 @@
                     </div>
                 </div>
 
-                <div class="pub-item">
+                <div class="pub-item has-thumb">
+                    <a class="pub-thumb-link" href="https://github.com/taoyt814" target="_blank" rel="noopener"><img class="pub-thumb" src="assets/rast.jpg" alt="RAST-GAT: risk-aware crowd navigation overview"></a>
                     <p class="pub-title">RAST-GAT: Risk-Aware Spatio-Temporal Graph Attention for Dense Crowd Navigation</p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Zichen Yang, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">投稿中 / Under Review</span>2026</p>
@@ -321,7 +333,8 @@
                     </div>
                 </div>
 
-                <div class="pub-item">
+                <div class="pub-item has-thumb">
+                    <a class="pub-thumb-link" href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener"><img class="pub-thumb" src="assets/mobile.jpg" alt="Mobile robot collision avoidance DRL network framework"></a>
                     <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener">Mobile Robot Collision Avoidance Based on Deep Reinforcement Learning with Motion Constraints</a></p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE T-IV</span>IEEE Transactions on Intelligent Vehicles, 10(3):2163–2173, 2024</p>
@@ -447,7 +460,8 @@
                 <h3>Publications</h3>
                 <p class="pub-note">My name in bold; (* indicates corresponding author)</p>
 
-                <div class="pub-item">
+                <div class="pub-item has-thumb">
+                    <a class="pub-thumb-link" href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener"><img class="pub-thumb" src="assets/void.jpg" alt="VOID: 3-D dynamic obstacle avoidance simulation"></a>
                     <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/11516508" target="_blank" rel="noopener">VOID: VO-Integrated Deep Reinforcement Learning for 3-D Dynamic Obstacle Avoidance</a></p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Jian Kang, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE T-IE</span>IEEE Transactions on Industrial Electronics (Early Access), 2026</p>
@@ -467,7 +481,8 @@
                     </div>
                 </div>
 
-                <div class="pub-item">
+                <div class="pub-item has-thumb">
+                    <a class="pub-thumb-link" href="https://github.com/taoyt814" target="_blank" rel="noopener"><img class="pub-thumb" src="assets/rast.jpg" alt="RAST-GAT: risk-aware crowd navigation overview"></a>
                     <p class="pub-title">RAST-GAT: Risk-Aware Spatio-Temporal Graph Attention for Dense Crowd Navigation</p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Zichen Yang, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">Under Review</span>2026</p>
@@ -526,7 +541,8 @@
                     </div>
                 </div>
 
-                <div class="pub-item">
+                <div class="pub-item has-thumb">
+                    <a class="pub-thumb-link" href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener"><img class="pub-thumb" src="assets/mobile.jpg" alt="Mobile robot collision avoidance DRL network framework"></a>
                     <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/10638222" target="_blank" rel="noopener">Mobile Robot Collision Avoidance Based on Deep Reinforcement Learning with Motion Constraints</a></p>
                     <p class="pub-authors"><b>Yuting Tao</b>, Mingyang Li, Xiao Cao, Peng Lu*</p>
                     <p class="pub-venue"><span class="badge">IEEE T-IV</span>IEEE Transactions on Intelligent Vehicles, 10(3):2163–2173, 2024</p>
